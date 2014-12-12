@@ -1,0 +1,34 @@
+{
+  "name": "unusedcss",
+  "version": "0.0.1",
+  "description": "Get the unused CSS from a url",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/johnotander/unusedcss.git"
+  },
+  "keywords": [
+    "uncss",
+    "unusedcss",
+    "css"
+  ],
+  "author": "John Otander <johnotander@gmail.com> (http://johnotander.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/johnotander/unusedcss/issues"
+  },
+  "homepage": "https://github.com/johnotander/unusedcss",
+  "devDependencies": {
+    "mocha": "^2.0.1"
+  },
+  "dependencies": {
+    "commander": "^2.5.0",
+    "uncss": "^0.10.0"
+  }
+}
