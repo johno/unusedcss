@@ -23,7 +23,7 @@ unusedCss('https://google.com');
 #### Using the CLI
 
 ```
-unusedcss [url]
+unusedcss url [url]
 ```
 
 ## Acknowledgements
