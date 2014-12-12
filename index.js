@@ -11,7 +11,11 @@ module.exports = function unusedCss(url, callback) {
     unCss([url], { report: true }, function(error, output) {
       usedCss = hashDeclarationsBySelector(css.parse(output).stylesheet.rules);
 
-      callback();
+      Object.keys(usedCss).forEach(function(key) {
+        delete originalCss[key];
+      });
+
+      callback(originalCss);
     });
   });
 };
