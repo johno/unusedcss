@@ -1,0 +1,33 @@
+#!/usr/bin/env node
+
+var program = require('commander');
+var unusedCss = require('..');
+var fs = require('fs');
+
+var version = '0.0.1'
+
+console.log('UnusedCSS CLI (' + version + ')');
+
+program
+  .version(version);
+
+program
+  .command('url [url]')
+  .description('retrieve unused CSS for a url')
+  .action(function(url) {
+    if (!url) {
+      console.log('Please specify a CSS url');
+      return;
+    }
+
+    try {
+      unusedCss(url, function(css) {
+        console.log(css);
+      });
+    } catch (e) {
+      console.log('UnusedCSS encountered an error with ' + url);
+      console.log(e);
+    }
+  });
+
+program.parse(process.argv);

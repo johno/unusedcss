@@ -1,6 +1,6 @@
 {
   "name": "unusedcss",
-  "version": "0.0.1",
+  "version": "0.0.1beta1",
   "description": "Get the unused CSS from a url",
   "main": "index.js",
   "directories": {
