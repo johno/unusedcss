@@ -1,6 +1,6 @@
 {
   "name": "unusedcss",
-  "version": "0.0.1beta1",
+  "version": "0.0.1beta2",
   "description": "Get the unused CSS from a url",
   "main": "index.js",
   "directories": {
@@ -26,6 +26,9 @@
   "homepage": "https://github.com/johnotander/unusedcss",
   "devDependencies": {
     "mocha": "^2.0.1"
+  },
+  "bin": {
+    "unusedcss": "./bin/unusedcss"
   },
   "dependencies": {
     "commander": "^2.5.0",
