@@ -2,6 +2,8 @@
 
 _Currently under development._
 
+[![Build Status](https://travis-ci.org/johnotander/unusedcss.svg?branch=master)](https://travis-ci.org/johnotander/unusedcss)
+
 Retrieve the unused CSS from a web page. This is useful for page analytics.
 
 ## Installation
@@ -26,7 +28,7 @@ unusedcss [url]
 
 ## Acknowledgements
 
-Relies heavily upon [uncss](https://github.com/giakki/uncss).
+Relies heavily upon [uncss](https://github.com/giakki/uncss) and [rework-css](https://github.com/reworkcss/css).
 
 ## License
 
