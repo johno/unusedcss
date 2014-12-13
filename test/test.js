@@ -2,11 +2,11 @@ var assert = require('assert');
 var unusedCss = require('..');
 
 describe('unusedCss', function() {
-  this.timeout(15000);
+  this.timeout(5000);
 
   it('should return data', function(done) {
-    unusedCss('http://johnotander.com/contact', function(css) {
-      console.log(css);
+    unusedCss('http://johnotander.com', function(css) {
+      assert.ok(css);
       done();
     });
   });
