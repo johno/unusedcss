@@ -2,9 +2,10 @@ var unCss = require('uncss');
 var css = require('css');
 var getCss = require('get-css');
 var isBlank = require('is-blank');
+var cssStats = require('css-statistics');
 
 module.exports = function unusedCss(url, callback) {
-  var originalCss, usedCss;
+  var originalCss, usedCss, stats;
   getCss(url).then(function(response) {
     originalCss = hashDeclarationsBySelector(css.parse(response.css).stylesheet.rules);
 
@@ -15,7 +16,17 @@ module.exports = function unusedCss(url, callback) {
         delete originalCss[key];
       });
 
-      callback(originalCss);
+      stats = {
+        selectors: 0,
+        declarations: 0
+      }
+
+      Object.keys(originalCss).forEach(function(key) {
+        stats.declarations += originalCss[key].length;
+        stats.selectors += 1;
+      });
+
+      callback(stats);
     });
   });
 };

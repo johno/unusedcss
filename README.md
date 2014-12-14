@@ -17,7 +17,8 @@ npm i --save unusedcss
 ```javascript
 var unusedCss = require('unusedcss');
 
-unusedCss('https://google.com');
+unusedCss('https://example.com');
+// => { declarations: 123, selectors: 456 }
 ```
 
 #### Using the CLI
