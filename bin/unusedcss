@@ -3,8 +3,9 @@
 var program = require('commander');
 var unusedCss = require('..');
 var fs = require('fs');
+var normalizeUrl = require('normalize-url');
 
-var version = '0.0.1'
+var version = '1.0.0'
 
 console.log('UnusedCSS CLI (' + version + ')');
 
@@ -21,8 +22,9 @@ program
     }
 
     try {
-      unusedCss(url, function(css) {
-        console.log(css);
+      unusedCss(normalizeUrl(url), function(css) {
+        console.log('Unused Selectors: ' + css.selectorsCount);
+        console.log('Unused Declarations: ' + css.declarationsCount);
       });
     } catch (e) {
       console.log('UnusedCSS encountered an error with ' + url);

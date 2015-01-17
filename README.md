@@ -1,6 +1,4 @@
-# UnusedCSS
-
-_Currently under development._
+# unused-css
 
 [![Build Status](https://travis-ci.org/johnotander/unusedcss.svg?branch=master)](https://travis-ci.org/johnotander/unusedcss)
 
@@ -18,7 +16,7 @@ npm i --save unusedcss
 var unusedCss = require('unusedcss');
 
 unusedCss('https://example.com');
-// => { declarations: 123, selectors: 456 }
+// => { declarationsCount: 123, declarations: [...], selectorsCount: 456, selectors: [...] }
 ```
 
 #### Using the CLI
@@ -29,7 +27,9 @@ unusedcss url [url]
 
 ## Acknowledgements
 
-Relies heavily upon [uncss](https://github.com/giakki/uncss) and [rework-css](https://github.com/reworkcss/css).
+* [uncss](https://github.com/giakki/uncss)
+* [rework-css](https://github.com/reworkcss/css)
+* [get-css](https://github.com/jxnblk/get-css.git)
 
 ## License
 
