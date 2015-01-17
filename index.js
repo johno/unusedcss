@@ -3,36 +3,48 @@ var css = require('css');
 var getCss = require('get-css');
 var isBlank = require('is-blank');
 var cssStats = require('css-statistics');
+var _ = require('lodash');
 
 module.exports = function unusedCss(url, callback) {
-  var originalCss, usedCss, stats;
+  var unusedSelectors = [];
+  var unusedDeclarations = [];
+
   getCss(url).then(function(response) {
-    originalCss = hashDeclarationsBySelector(css.parse(response.css).stylesheet.rules);
+    var originalCss = css.parse(response.css).stylesheet.rules;
 
     unCss([url], { report: true }, function(error, output) {
-      usedCss = hashDeclarationsBySelector(css.parse(output).stylesheet.rules);
+      var usedCss = hashDeclarationsBySelector(css.parse(output).stylesheet.rules);
 
-      Object.keys(usedCss).forEach(function(key) {
-        delete originalCss[key];
+      originalCss.filter(function(cssObj) {
+        // We only care about CSS rules.
+        return cssObj.type === 'rule';
+      }).forEach(function(cssObj) {
+        // Filter the selectors to those that were used
+        var unusedSelectorsForObj = cssObj.selectors.filter(function(selector) {
+          return !usedCss[selector];
+        });
+
+        // See if any selectors were used, add declarations to unused list if not.
+        if (unusedSelectorsForObj.length === cssObj.selectors.length) {
+          unusedDeclarations = unusedDeclarations.concat(cssObj.declarations);
+        }
+
+        // Add unused selectors to the unused selector list.
+        unusedSelectors = _.union(unusedSelectors, unusedSelectorsForObj);
       });
 
-      stats = {
-        selectors: 0,
-        declarations: 0
-      }
-
-      Object.keys(originalCss).forEach(function(key) {
-        stats.declarations += originalCss[key].length;
-        stats.selectors += 1;
+      callback({
+        selectors: unusedSelectors,
+        declarations: unusedDeclarations,
+        selectorsCount: unusedSelectors.length,
+        declarationsCount: unusedDeclarations.length
       });
-
-      callback(stats);
     });
   });
 };
 
 // Hash declarations with their selector as the key.
-// O(n) lookup, ftw.
+// O(1) lookup, ftw.
 function hashDeclarationsBySelector(cssArray) {
   var cssHash = {};
 
@@ -42,12 +54,7 @@ function hashDeclarationsBySelector(cssArray) {
   }).forEach(function(cssObj) {
     // Iterate over all the rules.
     cssObj.selectors.forEach(function(selector) {
-      // Concatenate the declarations for each selector.
-      if (isBlank(cssHash[selector])) {
-        cssHash[selector] = [];
-      }
-
-      cssHash[selector] = cssHash[selector].concat(cssObj.declarations);
+      cssHash[selector] = true;
     });
   });
 
